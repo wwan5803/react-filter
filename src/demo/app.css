@@ -1,0 +1,8 @@
+.brand-name input[type=checkbox] {
+    /*visibility: hidden;*/
+    display: none;
+    /*position: absolute;*/
+    /*right: -1px;*/
+    /*bottom: -1px;*/
+
+}
