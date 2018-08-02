@@ -5,7 +5,10 @@ import { Row, Col } from "antd";
 import ShowMore from './component/showMore';
 import BrandList from './component/brandList';
 import AlphabetList from './component/alphabet';
-
+const StyledRow = styled(Row)`
+    border-bottom: 1px dashed #f5f5f5;
+    padding-bottom: 10px;
+`;
 const propTypes = {
     data: PropTypes.arrayOf(PropTypes.object).isRequired,
     selectBrand: PropTypes.func.isRequired,
@@ -44,7 +47,7 @@ class BrandFilter extends Component{
                     <ShowMore onClick={this.showMore}/>
                 </Col>
             </Row>
-            <Row>
+            <StyledRow>
                 <Col xl={{ span: 18, offset: 3 }} lg={{ span: 14, offset: 5 }}>
                     <BrandList data={data}
                                selectBrand={selectBrand}
@@ -53,7 +56,7 @@ class BrandFilter extends Component{
                                onCancel={this.cancel}
                                {...this.props}/>
                 </Col>
-            </Row>
+            </StyledRow>
         </div>
     }
 }

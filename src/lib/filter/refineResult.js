@@ -6,6 +6,11 @@ const StyledRow = styled(Row)`
     padding-bottom: 10px;
     margin-bottom: 10px;
 `;
+const StyledCol = styled(Col)`
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+`;
 
 const FilterDetails = styled.div`
     border: 1px dashed grey;
@@ -21,47 +26,104 @@ const ResultsSpan = styled.span`
     padding: 5px;
 `;
 const RemoveSpan = styled.span`
-    float: right;
-    margin-right: 10px;
     cursor: pointer;
-    padding: 0 5px;
 `;
 
 const propTypes = {
-    data: PropTypes.arrayOf(PropTypes.string).isRequired,
+    categories: PropTypes.arrayOf(PropTypes.string).isRequired,
+    brands: PropTypes.arrayOf(PropTypes.string).isRequired,
     removeFilter: PropTypes.func.isRequired,
     label: PropTypes.string,
+    categoryLabel: PropTypes.string,
+    brandLabel: PropTypes.string,
+    dateLabel: PropTypes.string,
 }
 
 class RefineResult extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            showMore: false
+            showMoreCategories: false,
+            showMoreBrands: false,
+            showMoreDate: false
         }
     }
 
     render() {
-        const {label, data, removeFilter, children} = this.props;
-        return <StyledRow>
+        const {label, categoryLabel, brandLabel,
+            dateLabel, categories, brands, date, removeFilter, children} = this.props;
+        return <StyledRow gutter={16}>
             <Col xl={2} lg={3}>
                 {label}
             </Col>
+            {categories[0] &&
+                <Col xl={3} lg={4}>
+                    <FilterDetails onMouseOver={() => this.setState({showMoreCategories: true})}
+                                   onMouseLeave={() => this.setState({showMoreCategories: false})}>
+                        <Row>
+                            <StyledCol xl={18} lg={18}>
+                                {categoryLabel}: {categories[0]}...
+                            </StyledCol>
+                            <Col xl={{ span: 2, offset: 4 }} lg={{ span: 2, offset: 4 }}>
+                                <RemoveSpan onClick={() => removeFilter('CATEGORY')}>X</RemoveSpan>
+                            </Col>
+                        </Row>
+                    </FilterDetails>
+
+                    {
+                        this.state.showMoreCategories &&
+                        <FloatContent>
+                            {categories.map((d, index) => <ResultsSpan key={index}>{d},</ResultsSpan>)}
+                        </FloatContent>
+                    }
+                </Col>
+            }
+            {brands[0] &&
             <Col xl={3} lg={4}>
-                {data[0] &&
-                <FilterDetails onMouseOver={() => this.setState({showMore: true})}
-                               onMouseLeave={() => this.setState({showMore: false})}>
-                    {data[0]}...
-                    <RemoveSpan onClick={removeFilter}>X</RemoveSpan>
+
+                <FilterDetails onMouseOver={() => this.setState({showMoreBrands: true})}
+                               onMouseLeave={() => this.setState({showMoreBrands: false})}>
+                    <Row>
+                        <StyledCol xl={18} lg={18}>
+                            {brandLabel}: {brands[0]}...
+                        </StyledCol>
+                        <Col xl={{ span: 2, offset: 4 }} lg={{ span: 2, offset: 4 }}>
+                            <RemoveSpan onClick={() => removeFilter('BRAND')}>X</RemoveSpan>
+                        </Col>
+                    </Row>
                 </FilterDetails>
-                }
+
                 {
-                    this.state.showMore &&
+                    this.state.showMoreBrands &&
                     <FloatContent>
-                        {data.map((d, index) => <ResultsSpan key={index}>{d},</ResultsSpan>)}
+                        {brands.map((d, index) => <ResultsSpan key={index}>{d},</ResultsSpan>)}
                     </FloatContent>
                 }
             </Col>
+            }
+            {date &&
+            <Col xl={3} lg={4}>
+
+                <FilterDetails onMouseOver={() => this.setState({showMoreDate: true})}
+                               onMouseLeave={() => this.setState({showMoreDate: false})}>
+                    <Row>
+                        <StyledCol xl={18} lg={18}>
+                            {dateLabel}: {date}
+                        </StyledCol>
+                        <Col xl={{ span: 2, offset: 4 }} lg={{ span: 2, offset: 4 }}>
+                            <RemoveSpan onClick={() => removeFilter('DATE')}>X</RemoveSpan>
+                        </Col>
+                    </Row>
+                </FilterDetails>
+
+                {
+                    this.state.showMoreDate &&
+                    <FloatContent>
+                        <ResultsSpan>{date}</ResultsSpan>
+                    </FloatContent>
+                }
+            </Col>
+            }
             {children}
         </StyledRow>
     }

@@ -1,3 +1,3 @@
-import { CategoryFilter, BrandFilter, RefineResult } from "./filter/index";
+import { CategoryFilter, BrandFilter, DateFilter, RefineResult } from "./filter/index";
 
-export { CategoryFilter, BrandFilter, RefineResult };
+export { CategoryFilter, BrandFilter, DateFilter, RefineResult };

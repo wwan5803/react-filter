@@ -22,10 +22,10 @@ const propTypes = {
     cancelBackground:  PropTypes.string,
 }
 
-const CategoryList = ({ data, selectCategory, collapse, ...props }) =>
+const CategoryList = ({ data, selectCategory, collapse, pickedCategories, ...props }) =>
   <CategoryRow collapse={collapse}>
 
-      <CheckboxGroup onChange={selectCategory}>
+      <CheckboxGroup value={pickedCategories} onChange={selectCategory}>
           <Row>
               {data.map((d, index) => {
                   return (
