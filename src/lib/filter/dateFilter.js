@@ -7,7 +7,7 @@ const StyledRow = styled(Row)`
     padding-bottom: 10px;
     margin: 10px 0;
 `;
-const {MonthPicker, RangePicker, WeekPicker} = DatePicker;
+const {RangePicker} = DatePicker;
 const propTypes = {
     onChange: PropTypes.func.isRequired,
     label: PropTypes.string,

@@ -5,12 +5,15 @@ import styled from "styled-components";
 import ActionRow from './actionRow';
 const CheckboxGroup = Checkbox.Group;
 const CategoryRow = styled.div.attrs({
-  width: props => props.width || "500px"
+    width: props => props.width || "500px"
 })`
   transition: max-height 300ms ease-in-out;
   // width: ${props => props.width};
   overflow: hidden;
-  max-height: ${props => (props.collapse ? "20px" : "1500px")};
+  max-height: ${props => (props.collapse ? "30px" : "1500px")};
+`;
+const StyledCol = styled.span`
+  margin-right: 20px;
 `;
 const propTypes = {
     data: PropTypes.array.isRequired,
@@ -22,24 +25,22 @@ const propTypes = {
     cancelBackground:  PropTypes.string,
 }
 
-const CategoryList = ({ data, selectCategory, collapse, pickedCategories, ...props }) =>
-  <CategoryRow collapse={collapse}>
+const CategoryList = ({ data, selectCategory, collapse, pickedCategoryIds, ...props }) =>
+    <CategoryRow collapse={collapse}>
 
-      <CheckboxGroup value={pickedCategories} onChange={selectCategory}>
-          <Row>
-              {data.map((d, index) => {
-                  return (
-                      <Col xl={3} sm={5} key={d.id}>
-                          <Checkbox value={d} >
-                              {d.name}
-                          </Checkbox>
-                      </Col>
-                  );
-              })}
-          </Row>
-      </CheckboxGroup>
-      <ActionRow {...props}/>
-  </CategoryRow>;
+        <CheckboxGroup style={{lineHeight: '30px'}} value={pickedCategoryIds} onChange={selectCategory}>
+            {data.map((d, index) => {
+                return (
+                    <StyledCol key={d.id}>
+                        <Checkbox value={d.id} >
+                            {d.name}
+                        </Checkbox>
+                    </StyledCol>
+                );
+            })}
+        </CheckboxGroup>
+        <ActionRow {...props}/>
+    </CategoryRow>;
 
 CategoryList.propType = propTypes;
 

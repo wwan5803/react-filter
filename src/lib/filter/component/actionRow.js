@@ -27,12 +27,12 @@ const propTypes = {
 
 const ActionRow = ({ onSave, onCancel, saveBackground, cancelBackground }) =>
     <StyledRow type="flex" justify="center">
-        <Col xxl={2} xl={3} sm={5}>
+        <Col xxl={3} xl={4} sm={5}>
             <SaveButton background={saveBackground} onClick={onSave}>
                 Save
             </SaveButton>
         </Col>
-        <Col xxl={2} xl={3} sm={5}>
+        <Col xxl={3} xl={4} sm={5}>
             <CancelButton background={cancelBackground} onClick={onCancel}>
                 Cancel
             </CancelButton>

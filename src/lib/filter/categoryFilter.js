@@ -26,6 +26,13 @@ class CategoryFilter extends Component{
             collapse: true
         }
     }
+    componentWillReceiveProps(nextProps){
+        if(nextProps.pickedCategoryIds.length > 0){
+            this.setState({collapse: false})
+        }else{
+            this.setState({collapse: true})
+        }
+    }
     showMore = () => {
         this.setState(prevState => ({collapse:!prevState.collapse}))
     }
@@ -35,19 +42,19 @@ class CategoryFilter extends Component{
     render() {
         const {label, saveCategory} = this.props;
         return <StyledRow>
-                <Col xl={3} lg={5}>
-                    {label}
-                </Col>
-                <Col xl={18} lg={14}>
-                    <CategoryList collapse={this.state.collapse}
-                                  onSave={saveCategory}
-                                  onCancel={this.cancel}
-                                  {...this.props}/>
-                </Col>
-                <Col xl={3} lg={5}>
-                    <ShowMore onClick={this.showMore}/>
-                </Col>
-            </StyledRow>
+            <Col xl={3} lg={5}>
+                {label}
+            </Col>
+            <Col xl={18} lg={14}>
+                <CategoryList collapse={this.state.collapse}
+                              onSave={saveCategory}
+                              onCancel={this.cancel}
+                              {...this.props}/>
+            </Col>
+            <Col xl={3} lg={5}>
+                <ShowMore onClick={this.showMore}/>
+            </Col>
+        </StyledRow>
     }
 }
 
