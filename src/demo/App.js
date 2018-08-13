@@ -23,7 +23,7 @@ class App extends Component {
         this.state = {
             categories: mockData,
             brands: mockBrand,
-            pickedCategories: [],
+            pickedCategoryIds: [],
             pickedBrands: [],
             savedCategories: [],
             savedBrands: [],
@@ -33,7 +33,7 @@ class App extends Component {
     }
     selectCategory = checkedValues => {
         console.log("category:", checkedValues);
-        this.setState({ pickedCategories: checkedValues });
+        this.setState({ pickedCategoryIds: checkedValues });
     };
     selectBrand = e => {
         console.log("brand:", JSON.parse(e.target.value));
@@ -57,9 +57,11 @@ class App extends Component {
         //todo search brands according to alphabet
     };
     saveCategory = () => {
-        console.log("savedCategory", this.state.pickedCategories);
+        console.log("savedCategory", this.state.pickedCategoryIds);
         //todo call api of search by category
-        const savedCategories = [...this.state.pickedCategories];
+        const savedCategories = this.state.categories.filter(c => {
+            return c.id === this.state.pickedCategoryIds.find(id => Number(c.id) === Number(id))
+        })
         this.setState({
             savedCategories
         });
@@ -76,7 +78,7 @@ class App extends Component {
         if (type === "CATEGORY") {
             this.setState({
                 savedCategories: [],
-                pickedCategories: []
+                pickedCategoryIds: []
             });
         } else if (type === "BRAND") {
             this.setState({
@@ -114,7 +116,7 @@ class App extends Component {
                 <CategoryFilter
                     selectCategory={this.selectCategory}
                     saveCategory={this.saveCategory}
-                    pickedCategories={this.state.pickedCategories}
+                    pickedCategoryIds={this.state.pickedCategoryIds}
                     label="Category"
                     data={this.state.categories}
                     saveBackground="green"
